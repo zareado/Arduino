@@ -1,0 +1,29 @@
+
+int const pot = 0;
+int led = 2;
+
+int valpot;
+int valreal;
+
+void setup(){
+  Serial.begin(9600);
+  
+  
+}
+
+void loop() {
+  
+  valreal = analogRead(pot);
+  valpot = map(valreal, 0, 1023, 0, 180);
+  
+  Serial.print("Valor Real -> ");
+  Serial.println(valreal);
+  
+    delay(15);
+  
+  if (valreal > 20) {
+    digitalWrite (led, HIGH);
+  } else {
+          digitalWrite (led, LOW);
+      }
+}
