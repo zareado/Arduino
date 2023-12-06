@@ -1,0 +1,50 @@
+const int PinoTrigger = 11;
+const int PinoEcho = 12;
+int buz =10;
+int led =9;
+
+int duracao;
+float distancia;
+float metro;
+
+void setup () {
+  pinMode (PinoTrigger, OUTPUT);
+  pinMode (PinoEcho, INPUT);
+  pinMode (buz, OUTPUT);
+  pinMode (led, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  digitalWrite (PinoTrigger, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(PinoTrigger,LOW);
+  
+  duracao = pulseIn(PinoEcho,HIGH);
+  distancia = duracao*0.017175;
+  metro = distancia/100;
+  
+  if (distancia<=99){
+    Serial.print(distancia);
+    Serial.println("cm");
+    delay(100);
+    
+  }else{
+    
+  Serial.print(metro);
+  Serial.println("m");
+  delay(100);
+}
+  
+	if (distancia<=99){
+    tone (buz, 500);
+  	digitalWrite (led, HIGH);
+      delay (100);
+    digitalWrite (led, LOW);
+      delay (100);
+	} 
+  else{
+ 	noTone (buz);
+   	digitalWrite (led, LOW);
+  }
+}
