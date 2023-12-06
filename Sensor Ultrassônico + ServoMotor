@@ -1,0 +1,54 @@
+#include <Servo.h>
+
+Servo servoMotorObj;
+
+int const servoMotorPin = 3;
+const int PinoTrigger = 12;
+const int PinoEcho = 13;
+
+int duracao;
+int distancia;
+int led = 0;
+
+
+void setup(){
+  Serial.begin(9600);
+  pinMode (PinoTrigger, OUTPUT);
+  pinMode (PinoEcho, INPUT);
+  pinMode (led, OUTPUT);
+ 
+  servoMotorObj.attach(servoMotorPin);
+  
+}
+
+void loop() {
+  
+digitalWrite (led, HIGH);  
+  digitalWrite (PinoTrigger, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(PinoTrigger,LOW);
+  
+  duracao = pulseIn(PinoEcho,HIGH);
+  distancia = duracao*0.017175;
+  
+  Serial.print(distancia);
+  Serial.println("cm");
+  delay(100);
+  
+  
+  if (distancia<=50) {
+    
+  servoMotorObj.write(90);
+  digitalWrite (led, HIGH);
+    delay(1);
+  digitalWrite (led, LOW);
+    delay(1);
+  }else{
+    
+    servoMotorObj.write(0);
+  	digitalWrite (led, LOW);
+  
+	}
+  
+}
+  
