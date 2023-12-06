@@ -1,0 +1,44 @@
+int sensor = 0;
+int valorSensor = 0;
+
+const int ledVerde = 11;
+const int ledAmarelo =12;
+const int ledVermelho = 13;
+
+void setup(){
+  Serial.begin (9600);
+  
+  pinMode (ledVermelho, OUTPUT);
+  pinMode (ledAmarelo, OUTPUT);
+  pinMode (ledVerde, OUTPUT);
+  
+}
+
+void loop(){
+  int valorSensor = analogRead(sensor);
+  
+  apagaLeds();
+  Serial.println("=============================");
+  if (valorSensor < 450){
+    digitalWrite(ledVermelho, HIGH);
+    Serial.println("escuro");
+  }else if (valorSensor >=450 && valorSensor <=459){
+    digitalWrite(ledAmarelo, HIGH);
+    Serial.println("luz fraca");
+  }else{
+    digitalWrite(ledVerde, HIGH);
+    Serial.println("claro");
+  }
+  
+  Serial.print("Valor lido pelo sensor: ");
+  Serial.println(valorSensor);
+  Serial.println("===========");
+  Serial.println();
+  delay(1000);
+}
+
+void apagaLeds(){
+  digitalWrite(ledVermelho, LOW);
+  digitalWrite(ledAmarelo, LOW);
+  digitalWrite(ledVerde, LOW);
+}
