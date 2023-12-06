@@ -1,0 +1,36 @@
+#include <Servo.h>
+
+Servo servoMotorObj;
+
+int const potenciometroPin = 0;
+int const servoMotorPin = 3;
+
+int valPotenciometro;
+int valReal;
+
+void setup(){
+  Serial.begin(9600);
+  
+  servoMotorObj.attach(servoMotorPin);
+  
+}
+
+void loop() {
+  
+  valReal = analogRead(potenciometroPin);
+  valPotenciometro = map(valReal, 0, 1023, 0, 180);
+  
+  servoMotorObj.write(valPotenciometro);
+  
+  Serial.print("Valor em Graus -> ");
+  Serial.println(valPotenciometro);
+  
+  Serial.print("Valor Real -> ");
+  Serial.println(valReal);
+  
+  delay(15);
+  
+}
+
+
+
